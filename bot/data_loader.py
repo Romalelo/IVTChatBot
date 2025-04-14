@@ -3,7 +3,7 @@ import os
 from urllib.parse import urlencode
 from zipfile import ZipFile
 import pandas as pd
-from utils import load_json, save_json
+from utils import save_json
 
 API_URL = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?'
 
@@ -43,8 +43,8 @@ def parse_data_into_json():
     data_xlsx_dir = '../data/xlsx'
     students_data_as_list = []
     students_data_as_dict = {}
-
     dir_list = os.listdir(data_xlsx_dir)
+
     try:
         for dir in dir_list:
             files_list = os.listdir(data_xlsx_dir + '/' + dir)
@@ -56,7 +56,14 @@ def parse_data_into_json():
                     students_data_as_list += (sheet_to_df_map[sheet_name].to_dict(orient="records"))
 
         for student in students_data_as_list:
-            students_data_as_dict[student.pop('Студенч. номер')] = student
+            try:
+                student_id = int(student.pop('Студенч. номер'))
+            except:
+                continue
+            students_data_as_dict[student_id] = student
         save_json(students_data_as_dict, STUDENTS_FILE)
     except Exception as e:
         print(f'Ошибка: {e}')
+
+
+download_data_from_yandex_disk()
