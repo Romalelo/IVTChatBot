@@ -10,9 +10,9 @@ API_URL = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?'
 STUDENTS_FILE = '../data/jsons/students.json'
 
 
-def download_data_from_yandex_disk(url: str = 'https://disk.yandex.ru/d/DdP2kTZLhyfeVQ'):
+def download_students_marks_from_yandex_disk(url: str = 'https://disk.yandex.ru/d/DdP2kTZLhyfeVQ'):
     """
-    Загрузка новых данных с Яндекс Диска для админки
+    Загрузка новых данных по студентам с Яндекс Диска для админки
 
     :param url: URL ссылка на Яндекс Диск
     :return:
@@ -66,4 +66,4 @@ def parse_data_into_json():
         print(f'Ошибка: {e}')
 
 
-download_data_from_yandex_disk()
+download_students_marks_from_yandex_disk()

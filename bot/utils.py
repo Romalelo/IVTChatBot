@@ -95,6 +95,9 @@ def check_if_registered(user_id: int) -> bool:
 def get_student_marks_by_user_id(user_id: int) -> str:
     """
     Возвращает красиво отформатированную информацию о результатах студента для Telegram (HTML-разметка)
+
+    :param user_id: Id пользователя в телеграм
+    :return: Информация о результатах студента string
     """
     student_id = load_json(USERS_FILE)['user_student'][str(user_id)]
     student_marks = load_json(STUDENT_FILE)[student_id]
