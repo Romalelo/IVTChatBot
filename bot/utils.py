@@ -109,7 +109,6 @@ def get_student_marks_by_user_id(user_id: int) -> str:
 
         is_starred = '*' in str(mark)
         mark_clean = str(mark).replace('*', '').replace('/', '').rstrip()
-        print(mark_clean)
 
         if isinstance(mark, str) and mark_clean.lower() in ['незач', 'незачет', 'не зачтено', 'неатт', 'неатт.',
                                                             'не атт']:
@@ -122,7 +121,6 @@ def get_student_marks_by_user_id(user_id: int) -> str:
             display_mark = mark_clean
         elif display_mark == '':
             display_mark = mark_clean
-            print(display_mark)
 
         display_mark += '*' if is_starred else ''
 

@@ -103,7 +103,7 @@ def set_google_sheets_link_handler(message):
 
 
 @bot.message_handler(func=lambda m: m.text == "Обновить оценки/расписание")
-def set_google_sheets_link_handler(message):
+def update_data_handler(message):
     user_id = message.chat.id
     if check_user_is_admin(user_id):
         admin_status[user_id] = 'update'
@@ -111,7 +111,7 @@ def set_google_sheets_link_handler(message):
 
 
 @bot.message_handler(func=lambda m: m.text == "Рассылка ВСЕМ пользователям")
-def set_google_sheets_link_handler(message):
+def all_users_broadcast_handler(message):
     user_id = message.chat.id
     if check_user_is_admin(user_id):
         admin_status[user_id] = 'broadcast'
@@ -122,7 +122,7 @@ def set_google_sheets_link_handler(message):
 def other_message_handler(message):
     user_id = message.chat.id
 
-    if check_user_is_admin(user_id) and admin_status[user_id]:
+    if check_user_is_admin(user_id) and admin_status.get(user_id, None):
         try:
             if admin_status[user_id] == 'yandex_disk':
                 parse_all_info(yandex_link=str(message.text))
