@@ -5,7 +5,7 @@ from parser import parse_all_info
 from config import TOKEN, DataFiles, ADMIN_PASSWORD
 from utils import add_new_user, check_if_student_exists, set_student_id, check_if_registered, \
     get_student_marks_by_user_id, delete_student_id, get_users, get_formatted_output
-from keyboards import main_keyboard, admin_keyboard, schedule_keyboard
+from keyboards import main_keyboard, admin_keyboard, schedule_keyboard, unregistered_keyboard
 from admin import check_user_is_admin, add_admin
 
 bot = telebot.TeleBot(TOKEN)
@@ -17,7 +17,8 @@ user_status = {}
 @bot.message_handler(commands=['start'])
 def start_handler(message):
     bot.send_message(message.chat.id,
-                     "Здравствуйте, это бот деканата ИВТ. Для начала использования введите номер студенческого билета.")
+                     "Здравствуйте, это бот деканата ИВТ. Для начала использования введите номер студенческого билета.",
+                     reply_markup=unregistered_keyboard)
     user_id = message.chat.id
     add_new_user(user_id)
 
@@ -153,6 +154,7 @@ def other_message_handler(message):
         elif user_status[user_id] == 'classrooms':
             bot.send_message(user_id, get_formatted_output(DataFiles.CLASSROOMS, message.text), parse_mode="HTML",
                              reply_markup=schedule_keyboard)
+        return
 
     if check_if_registered(user_id):
         bot.send_message(user_id, f"Неизвестная команда.", reply_markup=main_keyboard)

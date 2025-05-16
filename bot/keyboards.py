@@ -6,6 +6,9 @@ main_keyboard.add(types.KeyboardButton("Мои Оценки"))
 main_keyboard.add(types.KeyboardButton("Расписание"))
 main_keyboard.add(types.KeyboardButton("Ввести номер номер студенческого билета заново"))
 
+unregistered_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+unregistered_keyboard.add(types.KeyboardButton("Расписание"))
+
 # Админская клавиатура
 admin_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
 admin_keyboard.add(types.KeyboardButton('Поменять ссылку на оценки (Яндекс Диск)'),
